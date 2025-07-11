@@ -28,12 +28,12 @@ namespace task_management_kpmg.Server.Controllers
         // List all tasks
         [HttpGet]
 
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             using var connection = new SqlConnection(_connectionString);
 
             var sql = "SELECT * FROM Tasks";
-            var tasks = connection.Query<TaskItem>(sql).ToList();
+            var tasks = await connection.QueryAsync<TaskItem>(sql);
 
             return Ok(tasks);
         }
@@ -41,7 +41,7 @@ namespace task_management_kpmg.Server.Controllers
 
         // Get Task by ID
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetTaskById(int id)
         {
             using var connection = new SqlConnection(_connectionString);
 
@@ -53,6 +53,38 @@ namespace task_management_kpmg.Server.Controllers
                 return NotFound();
             }
             return Ok(tasks);
+        }
+
+
+        //Create a new task
+        [HttpPost]
+
+        public async Task<ActionResult<TaskItem>> CreateTask(TaskItem task)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+            var sql = @"
+    INSERT INTO Tasks (Title, Description, Status, DueDate)
+    OUTPUT INSERTED.Id
+    VALUES (@Title, @Description, @Status, @DueDate)";
+
+            var newId = await connection.ExecuteScalarAsync<int>(sql, task);
+            task.Id = newId;
+            return CreatedAtAction(nameof(GetTaskById), new { id = task.Id }, task);
+        }
+
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            var sql = "DELETE FROM Tasks WHERE Id = @Id";
+
+            var affectedRows = await connection.ExecuteAsync(sql, id);
+
+            if (affectedRows == 0)
+                return NotFound();
+
+            return NoContent();
+
         }
 
 
