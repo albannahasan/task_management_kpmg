@@ -1,86 +1,158 @@
 ﻿#root {
-    margin: 0 auto;
-    text-align: center;
+  margin: 0 auto;
+  text-align: center;
+  --radius: 0.5rem; /* 8px */
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+th,
+td {
+  padding: 0 1rem;
 }
 
 .title-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.title-container-left-title{
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    margin-top: 0;
-    text-align: left;
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-
+.title-container-left-title {
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  text-align: left;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
-.task-summary-container{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-
+.task-summary-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.task-filter-container{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-    padding-top: 1rem;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
-    background-color: white;
-    border: 1px solid rgb(229 231 235);
+.task-filter-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid #e5e7eb;
 }
 
-.summary-card{
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    display: flex;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
-    background-color: white;
-    border: 1px solid rgb(229 231 235);
+.task-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.summary-card {
+  padding: 1rem 1.5rem;
+  display: flex;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+}
+
 .summary-card > *:first-child {
-    flex: 0 0 70%;
+  flex: 0 0 70%;
 }
 .summary-card > *:last-child {
-    flex: 0 0 30%;
+  flex: 0 0 30%;
 }
 
-.summary-card-count{
-    min-width: 48px;
-    max-width: 48px;
-    flex-shrink: 1;
-    margin-right: 1rem;
+.summary-card-count {
+  min-width: 48px;
+  max-width: 48px;
+  flex-shrink: 1;
+  margin-right: 1rem;
 }
 
 .summary-card-title {
-    font-size: .875rem;
-    color: rgb(107 114 128 / var(--tw-text-opacity, 1));
-    font-weight: 500;
-    line-height: 1.25rem;
+  font-size: 0.875rem;
+  color: rgb(107 114 128 / 1);
+  font-weight: 500;
+  line-height: 1.25rem;
 }
 
 .summary-card-value {
-    text-align: left;
-    font-weight: 600;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
-    
+.task-filter-container-left {
+  text-align: left;
+  padding: 0.5rem;
+  border-radius: var(--radius);
 }
+
+.filter-description {
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.filter-search {
+  padding-left: 2.5rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: var(--radius);
+  border: 1px solid #e5e7eb;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+.filter-select {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: var(--radius);
+  border: 1px solid #bcbec2;
+}
+
+
+.filter-search:focus {
+  outline: none;
+  border-color: #2563eb; /* blue-600 */
+}
+
+.filter-search:active {
+  border-color: #2563eb;
+  /* Optionally, you can add a background or other effect */
+  /* background: #eff6ff; */
+}
+
+.task-container{
+    padding: 1.5rem 0;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .task-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .task-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
