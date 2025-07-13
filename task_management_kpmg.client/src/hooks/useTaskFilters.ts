@@ -4,7 +4,7 @@ interface Task {
   id: number;
   title: string;
   description?: string;
-  status: "todo" | "inprogress" | "completed";
+  status: "toDo" | "inProgress" | "done";
   priority?: "low" | "medium" | "high";
   dueDate?: string;
 }
@@ -56,9 +56,9 @@ export const useTaskFilters = (tasks: Task[]) => {
 
   const getTaskStats = () => {
     const total = tasks.length;
-    const todo = tasks.filter(task => task.status === 'todo').length;
-    const inProgress = tasks.filter(task => task.status === 'inprogress').length;
-    const completed = tasks.filter(task => task.status === 'completed').length;
+    const todo = tasks.filter(task => task.status === 'toDo').length;
+    const inProgress = tasks.filter(task => task.status === 'inProgress').length;
+    const completed = tasks.filter(task => task.status === 'done').length;
 
     return { total, todo, inProgress, completed };
   };

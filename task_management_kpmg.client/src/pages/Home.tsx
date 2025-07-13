@@ -4,6 +4,7 @@ import CheckCircleIcon from '../assets/check-circle.svg';
 import { useTasks } from '../hooks/useTasks';
 import { useTaskFilters } from '../hooks/useTaskFilters';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import CreateTaskModal from "../Components/CreateTaskModal";
 
 
 interface Forecast {
@@ -23,7 +24,7 @@ interface Task {
   id: number;
   title: string;
   description?: string;
-  status: "todo" | "inprogress" | "completed";
+  status: "toDo" | "inProgress" | "done";
   priority?: "low" | "medium" | "high";
   dueDate?: string;
 }
@@ -69,6 +70,9 @@ const Home: React.FC = () => {
   const { filters, filteredTasks, updateFilter, clearFilters, getTaskStats } = useTaskFilters(tasks);
   const [theme, setTheme] = useLocalStorage('theme', 'light');
 
+  const [displayCreateTaskModal, setDisplayCreateTaskModal] = useState<boolean>(false);
+
+
   useEffect(() => {
     populateWeatherData();
   }, []);
@@ -82,7 +86,15 @@ const Home: React.FC = () => {
         </div>
 
         <div>
-          <button>New Task</button>
+          <button onClick={() => setDisplayCreateTaskModal(true)}>New Task</button>
+          {/* Yes, you can put the modal component right under here, so it appears above the rest of the content when open. For example: */}
+          {displayCreateTaskModal && (
+            <CreateTaskModal
+              isOpen={displayCreateTaskModal}
+              onClose={() => setDisplayCreateTaskModal(false)}
+              onCreate={addTask}
+            />
+          )}
         </div>
       </div>
       <div className="task-summary-container">
@@ -166,9 +178,9 @@ const Home: React.FC = () => {
               onChange={(e) => updateFilter('status', e.target.value)}
             >
               <option value="">All</option>
-              <option value="todo">To Do</option>
-              <option value="inprogress">In Progress</option>
-              <option value="completed">Completed</option>
+              <option value="toDo">To Do</option>
+              <option value="inProgress">In Progress</option>
+              <option value="done">Done</option>
             </select>
           </div>
           <div className="task-filter-container-left">

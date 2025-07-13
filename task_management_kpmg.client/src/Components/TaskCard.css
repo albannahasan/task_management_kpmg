@@ -39,3 +39,19 @@
     line-height: 1.25rem;
     color: #6b7280;
 }
+
+.task-card-description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: normal;
+  white-space: normal;
+  line-height: 1.5em;
+  max-height: 4.5em;
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin: 0 0 0.5rem 0;
+  text-align: justify;
+}

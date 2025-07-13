@@ -8,18 +8,18 @@ import CalendarIcon from "../assets/calendar.svg?react";
 interface TaskCardProps {
   title: string;
   description?: string;
-  status?: "todo" | "inprogress" | "completed";
+  status?: "toDo" | "inProgress" | "done";
   priority?: "low" | "medium" | "high";
   dueDate?: string;
 }
 
 const getIcon = (status?: string) => {
   switch (status) {
-    case "inprogress":
+    case "inProgress":
       return <ClockIcon width={12} height={12} />;
-    case "completed":
+    case "Done":
       return <CheckIcon width={12} height={12} />;
-    case "todo":
+    case "toDo":
       return <ExclamationIcon width={12} height={12} />;
     default:
       return null;
@@ -42,11 +42,11 @@ function formatDate(dateString?: string) {
 
 const getStatusColor = (status?: string) => {
   switch (status) {
-    case "completed":
+    case "done":
       return "#22c55e"; // green
-    case "inprogress":
+    case "inProgress":
       return "#f59e42"; // orange
-    case "todo":
+    case "toDo":
       return "#3b82f6"; // blue
     default:
       return "#6b7280"; // gray
@@ -55,11 +55,11 @@ const getStatusColor = (status?: string) => {
 
 const getStatusBgColor = (status?: string) => {
   switch (status) {
-    case "completed":
+    case "done":
       return "#DCFCE7"; // light green
-    case "inprogress":
+    case "inProgress":
       return "#FEF3C7"; // light orange
-    case "todo":
+    case "toDo":
       return "#EBF8FF"; // light blue
     default:
       return "#F3F4F6"; // light gray
@@ -77,6 +77,19 @@ const getPriorityLabel = (priority?: string) => {
     default:
       return "";
   }
+};
+
+const getStatusLabel = (status?: string) => {
+    switch (status) {
+        case "toDo":
+            return "To Do";
+        case "inProgress":
+            return "In Progress";
+        case "done":
+            return "Done";      
+        default:
+            return "";
+    }
 };
 
 const TaskCard: React.FC<TaskCardProps> = ({
@@ -111,15 +124,22 @@ const TaskCard: React.FC<TaskCardProps> = ({
           >
             {getIcon(status)}
           </span>
-          {status}
+          {getStatusLabel(status)}
         </div>
       </div>
       {description && (
-        <div style={{ marginTop: "0.5rem", marginBottom: "0.5rem", padding: "0.5rem 0"}}>
-
-        <p style={{ margin: 0, color: "#6b7280", fontSize: "0.95rem" }}>
-          {description}
-        </p>
+        <div
+          style={{
+            marginTop: "0.5rem",
+            marginBottom: "0.5rem",
+            padding: "0.5rem 0",
+          }}
+        >
+          <p
+            className="task-card-description"
+          >
+            {description}
+          </p>
         </div>
       )}
       <div
@@ -128,6 +148,8 @@ const TaskCard: React.FC<TaskCardProps> = ({
           display: "flex",
           gap: "1rem",
           justifyContent: "space-between",
+          flexWrap: "wrap",
+          alignItems: "center",
         }}
       >
         {status && (
@@ -139,17 +161,33 @@ const TaskCard: React.FC<TaskCardProps> = ({
               background: "#f3f4f6",
               borderRadius: "0.25rem",
               padding: "0.15rem 0.5rem",
+              marginBottom: "0.25rem",
+              minWidth: 0,
+              flex: "1 1 120px",
+              boxSizing: "border-box",
+              wordBreak: "break-word",
             }}
           >
-            {status === "todo"
+            {status === "toDo"
               ? "To Do"
-              : status === "inprogress"
+              : status === "inProgress"
               ? "In Progress"
               : "Completed"}
           </span>
         )}
 
-        <span className="task-card-due-date">
+        <span
+          className="task-card-due-date"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            minWidth: 0,
+            flex: "1 1 120px",
+            justifyContent: "flex-end",
+            wordBreak: "break-word",
+            marginBottom: "0.25rem",
+          }}
+        >
           <CalendarIcon width={12} height={12} style={{ marginRight: "0.4em" }} />
           {formatDate(dueDate)}
         </span>

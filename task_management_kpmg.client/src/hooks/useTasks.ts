@@ -4,7 +4,7 @@ interface Task {
   id: number;
   title: string;
   description?: string;
-  status: "todo" | "inprogress" | "completed";
+  status: "toDo" | "inProgress" | "done";
   priority?: "low" | "medium" | "high";
   dueDate?: string;
 }
