@@ -1,8 +1,9 @@
 ﻿namespace task_management_server.Data
 {
     using FluentMigrator;
+    using task_management_kpmg.Server.Models;
 
-    [Migration(2025071401)] // use a unique timestamp or incrementing number
+    [Migration(2025071402)] // use a unique timestamp or incrementing number
     public class AddTaskItemsTable : Migration
     {
         public override void Up()
@@ -16,13 +17,14 @@
                     .WithColumn("Status").AsInt32().NotNullable()
                     .WithColumn("DueDate").AsDateTime().NotNullable()
                     .WithColumn("CreatedDate").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-                    .WithColumn("UpdatedAt").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
+                    .WithColumn("UpdatedAt").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                    .WithColumn("Priority").AsInt32().NotNullable().WithDefaultValue((int)TaskPriority.Medium);
             }
         }
 
         public override void Down()
         {
-            Delete.Table("TaskItems");
+            Delete.Table("Tasks");
         }
     }
 

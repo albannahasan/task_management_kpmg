@@ -61,6 +61,18 @@ namespace task_management_kpmg.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTask([FromBody] TaskItem updatedTask, int id)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState
+                    .Where(kvp => kvp.Value.Errors.Any())
+                    .Select(kvp => new {
+                        Field = kvp.Key,
+                        Errors = kvp.Value.Errors.Select(e => e.ErrorMessage)
+                    });
+
+                return BadRequest(errors); // Optional: return only the error summary
+            }
+
 
             if (id != updatedTask.Id)
                 return BadRequest("ID in URL does not match ID in body");
@@ -70,6 +82,7 @@ namespace task_management_kpmg.Server.Controllers
             if (existingTask == null)
                 return NotFound();
 
+
             using var connection = new SqlConnection(_connectionString);
 
             var sql = "UPDATE Tasks SET " +
@@ -77,11 +90,11 @@ namespace task_management_kpmg.Server.Controllers
                 "Description = @Description," +
                 "Status = @Status," +
                 "DueDate = @DueDate," +
-                " UpdatedAt = GETUTCDATE() " +
+                "Priority = @Priority," +
+                "UpdatedAt = GETUTCDATE() " +
                 "WHERE Id = @Id";
 
-
-            connection.Execute(sql, new
+            await connection.ExecuteAsync(sql, new
             {
                 updatedTask.Title,
                 updatedTask.Description,
@@ -104,21 +117,27 @@ namespace task_management_kpmg.Server.Controllers
             using var connection = new SqlConnection(_connectionString);
 
             var sql = @"
-    INSERT INTO Tasks (Title, Description, Status, DueDate, CreatedDate, UpdatedAt)
+    INSERT INTO Tasks (Title, Description, Status, DueDate, CreatedDate, UpdatedAt, Priority)
     OUTPUT INSERTED.Id
-    VALUES (@Title, @Description, @Status, @DueDate, GETUTCDATE(), GETUTCDATE())";
+    VALUES (@Title, @Description, @Status, @DueDate, GETUTCDATE(), GETUTCDATE(), @Priority)";
 
             var newId = await connection.ExecuteScalarAsync<int>(sql, task);
             task.Id = newId;
             return CreatedAtAction(nameof(GetTaskById), new { id = task.Id }, task);
         }
 
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
             using var connection = new SqlConnection(_connectionString);
             var sql = "DELETE FROM Tasks WHERE Id = @Id";
 
-            var affectedRows = await connection.ExecuteAsync(sql, id);
+            var existingTask = GetTaskByIdInternal(id);
+
+            if (existingTask == null)
+                return NotFound();
+
+            var affectedRows = await connection.ExecuteAsync(sql, new { Id = id });
 
 
 
