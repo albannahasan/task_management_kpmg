@@ -12,5 +12,8 @@ namespace task_management_kpmg.Server.Models
         public string Description { get; set; }
         public TaskStatus Status { get; set; }
         public DateTime DueDate { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 }

@@ -76,7 +76,8 @@ namespace task_management_kpmg.Server.Controllers
                 "Title = @Title," +
                 "Description = @Description," +
                 "Status = @Status," +
-                "DueDate = @DueDate " +
+                "DueDate = @DueDate," +
+                " UpdatedAt = GETUTCDATE() " +
                 "WHERE Id = @Id";
 
 
@@ -103,9 +104,9 @@ namespace task_management_kpmg.Server.Controllers
             using var connection = new SqlConnection(_connectionString);
 
             var sql = @"
-    INSERT INTO Tasks (Title, Description, Status, DueDate)
+    INSERT INTO Tasks (Title, Description, Status, DueDate, CreatedDate, UpdatedAt)
     OUTPUT INSERTED.Id
-    VALUES (@Title, @Description, @Status, @DueDate)";
+    VALUES (@Title, @Description, @Status, @DueDate, GETUTCDATE(), GETUTCDATE())";
 
             var newId = await connection.ExecuteScalarAsync<int>(sql, task);
             task.Id = newId;

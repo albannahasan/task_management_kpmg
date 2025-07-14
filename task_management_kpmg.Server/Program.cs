@@ -1,7 +1,12 @@
+using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
-using task_management_kpmg.Server.Data;
-using System.Text.Json;using System.Text.Json;
+using System.Text.Json;
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using task_management_kpmg.Server.Data;
+using task_management_server.Data;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +22,20 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
 });
 
+builder.Services
+    .AddFluentMigratorCore()
+    .ConfigureRunner(rb => rb
+        .AddSqlServer()
+        .WithGlobalConnectionString(builder.Configuration.GetConnectionString("DefaultConnection"))
+        .ScanIn(typeof(AddTaskItemsTable).Assembly).For.Migrations())
+    .AddLogging(lb => lb.AddFluentMigratorConsole());
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+    var runner = scope.ServiceProvider.GetRequiredService<FluentMigrator.Runner.IMigrationRunner>();
+    runner.MigrateUp();
 }
 
 // Configure the HTTP request pipeline.
@@ -34,25 +47,6 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
 
 app.Run();
 
