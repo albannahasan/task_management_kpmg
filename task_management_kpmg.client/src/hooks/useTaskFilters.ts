@@ -1,19 +1,21 @@
 import { useState, useMemo } from 'react';
+import type { Task } from '../interface/Task';
 
-interface Task {
-  id: number;
-  title: string;
-  description?: string;
-  status: "toDo" | "inProgress" | "done";
-  priority?: "low" | "medium" | "high";
-  dueDate?: string;
-}
 
 interface TaskFilters {
   search: string;
   status: string;
   priority: string;
 }
+
+export type SortOption =
+  | 'title_asc'
+  | 'title_desc'
+  | 'dueDate_asc'
+  | 'dueDate_desc'
+  | 'createdAt_asc'
+  | 'createdAt_desc'
+  | 'updatedAt_desc';
 
 export const useTaskFilters = (tasks: Task[]) => {
   const [filters, setFilters] = useState<TaskFilters>({
@@ -22,8 +24,10 @@ export const useTaskFilters = (tasks: Task[]) => {
     priority: '',
   });
 
+  const [sort, setSort] = useState<SortOption>('dueDate_asc');
+
   const filteredTasks = useMemo(() => {
-    return tasks.filter(task => {
+    let result = tasks.filter(task => {
       // Search filter
       const searchMatch = !filters.search || 
         task.title.toLowerCase().includes(filters.search.toLowerCase()) ||
@@ -37,13 +41,54 @@ export const useTaskFilters = (tasks: Task[]) => {
 
       return searchMatch && statusMatch && priorityMatch;
     });
-  }, [tasks, filters]);
+
+    // Sorting
+    result = [...result].sort((a, b) => {
+      switch (sort) {
+        case 'title_asc':
+          console.log(a.title, b.title);
+          return a.title.localeCompare(b.title);
+        case 'title_desc':
+          return b.title.localeCompare(a.title);
+        case 'dueDate_desc':
+          if (!a.dueDate) return 1;
+          if (!b.dueDate) return -1;
+          return b.dueDate.localeCompare(a.dueDate);
+        case 'dueDate_asc':
+          if (!a.dueDate) return 1;
+          if (!b.dueDate) return -1;
+          return a.dueDate.localeCompare(b.dueDate);
+        case 'createdAt_desc':
+          if (!a.createdDate) return 1;
+          if (!b.createdDate) return -1;
+          return b.createdDate.localeCompare(a.createdDate);
+        case 'createdAt_asc':
+          if (!a.createdDate) return 1;
+          if (!b.createdDate) return -1;
+          return a.createdDate.localeCompare(b.createdDate);
+        case 'updatedAt_desc':
+          // Sort so that the most recently updated tasks come first
+          console.log(a.updatedAt, a.title, b.updatedAt, b.title);
+          if (!a.updatedAt) return 1;
+          if (!b.updatedAt) return -1;
+          return b.updatedAt.localeCompare(a.updatedAt);
+        default:
+          return 0;
+      }
+    });
+
+    return result;
+  }, [tasks, filters, sort]);
 
   const updateFilter = (key: keyof TaskFilters, value: string) => {
     setFilters(prev => ({
       ...prev,
       [key]: value
     }));
+  };
+
+  const updateSort = (option: SortOption) => {
+    setSort(option);
   };
 
   const clearFilters = () => {
@@ -69,5 +114,7 @@ export const useTaskFilters = (tasks: Task[]) => {
     updateFilter,
     clearFilters,
     getTaskStats,
+    sort,
+    updateSort,
   };
 }; 

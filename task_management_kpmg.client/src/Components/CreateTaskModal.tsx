@@ -94,8 +94,12 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
-                className="input-field"
-
+                className={`input-field${description.trim() === "" && description !== "" ? " input-field-error" : ""}`}
+                style={{
+                  fontFamily: "inherit",
+                  borderColor: description.trim() === "" && description !== "" ? "#ef4444" : undefined,
+                }}
+                required
               />
             </label>
           </div>
@@ -127,14 +131,35 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
                   onChange={(e) => setDueDate(e.target.value)}
                   style={{ width: "100%", marginLeft: 0, marginTop: "0.25rem" }}
                   className="input-field"
+                  required
                 />
               </label>
+            </div>
+          </div>
+          <div>
+          <div className="label-title" style={{ flex: 1, width: "50%" }}>
+              <label htmlFor="status-select">
+                Priority
+              </label>
+              <select
+                id="status-select"
+                value={priority}
+                onChange={(e) =>
+                  setPriority(e.target.value as "low" | "medium" | "high")
+                }
+                className="input-field"
+                style={{ width: "100%", marginLeft: 0, marginTop: "0.25rem" }}
+              >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
             </div>
           </div>
           <hr style={{ margin: "0.5rem 0", border: "none", borderTop: "1.5px solid #e5e7eb" }} />
 
           <div style={{ display: "flex", justifyContent: "end", gap: "1rem" }}>
-            <button className="cancel-button">
+            <button type="button" onClick={onClose} className="cancel-button">
               Cancel
             </button>
             <button

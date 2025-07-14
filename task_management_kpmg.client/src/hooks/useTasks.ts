@@ -14,6 +14,26 @@ export const useTasks = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Add getTaskById helper
+  // More efficient to fetch the task by id from the API, as the local state may be stale or incomplete.
+  const getTaskById = async (id: number | string): Promise<Task | undefined> => {
+    setLoading(true);
+
+    const numericId = typeof id === "string" ? parseInt(id, 10) : id;
+    try {
+      const response = await fetch(`/api/tasks/${numericId}`);
+      if (!response.ok) throw new Error("Failed to fetch task by id");
+      const task = await response.json();
+      setLoading(false);
+
+      return task;
+    } catch (err) {
+      console.error(err);
+      return undefined;
+    }
+
+  };
+
   const fetchTasks = async () => {
     try {
       setLoading(true);
@@ -32,6 +52,7 @@ export const useTasks = () => {
 
   const addTask = async (newTask: Omit<Task, 'id'>) => {
     try {
+      console.log(newTask);
       const response = await fetch("/api/tasks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,6 +73,7 @@ export const useTasks = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updates),
       });
+      console.log(updates);
       if (!response.ok) throw new Error("Failed to update task");
       await fetchTasks(); // Refresh the list
     } catch (err) {
@@ -65,6 +87,7 @@ export const useTasks = () => {
       const response = await fetch(`/api/tasks/${id}`, {
         method: "DELETE",
       });
+      console.log(response);
       if (!response.ok) throw new Error("Failed to delete task");
       await fetchTasks(); // Refresh the list
     } catch (err) {
@@ -85,5 +108,6 @@ export const useTasks = () => {
     addTask,
     updateTask,
     deleteTask,
+    getTaskById,
   };
 }; 

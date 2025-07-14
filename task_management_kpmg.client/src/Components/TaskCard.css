@@ -8,6 +8,7 @@
   flex-direction: column;
   gap: 0.5rem;
   min-height: 120px;
+  max-width: 400px;
   text-align: left;
   cursor: pointer;
   transition: box-shadow 0.2s, border-color 0.2s;
@@ -23,6 +24,9 @@
   font-size: 1.125rem;
   line-height: 1.75rem;
   margin: 0;
+  max-width: 60%;
+  overflow: hidden;
+
 }
 
 .task-card-status-indicator {
@@ -32,6 +36,7 @@
   font-size: 0.75rem;
   padding: 0.125rem 0.625rem;
   align-items: center;
+  max-height: 1.5rem;
 }
 
 .task-card-due-date{

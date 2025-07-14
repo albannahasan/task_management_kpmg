@@ -23,9 +23,6 @@ const Navbar: React.FC = () => {
 
         <div className="navbar-actions">
           <button className="btn-primary">New Task</button>
-          <div className="user-avatar">
-            <img src="https://via.placeholder.com/32" alt="User" />
-          </div>
         </div>
 
         <div className="navbar-toggle" onClick={toggleMenu}>

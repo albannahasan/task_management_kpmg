@@ -100,6 +100,7 @@ namespace task_management_kpmg.Server.Controllers
                 updatedTask.Description,
                 updatedTask.Status,
                 updatedTask.DueDate,
+                updatedTask.Priority,
                 Id = id
             });
 

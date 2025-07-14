@@ -72,19 +72,6 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.user-avatar img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.user-avatar img:hover {
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: scale(1.1);
-}
 
 .navbar-toggle {
   display: none;
