@@ -6,7 +6,7 @@ import EditIcon from "../assets/edit.svg?react";
 import ExitIcon from "../assets/exit.svg?react";
 import CalendarIcon from "../assets/calendar.svg?react";
 
-import "./ViewTaskModal.css";
+import "./styles/ViewTaskModal.css";
 import Utils from "../utils/utils";
 interface CreateTaskModalProps {
   isOpen: boolean;
@@ -142,7 +142,7 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
   }
 
   return (
-    <div className="modal-parent">
+    <div className="modal-parent fade-in">
       <div className="create-task-modal">
         <div className="view-task-modal-header">
           <div>

@@ -1,5 +1,5 @@
 import React from "react";
-import "./TaskCard.css";
+import "./styles/TaskCard.css";
 
 import CalendarIcon from "../assets/calendar.svg?react";
 import Utils from "../utils/utils";
@@ -12,8 +12,6 @@ interface TaskCardProps {
   priority?: "low" | "medium" | "high";
   onClick?: () => void;
 }
-
-
 
 
 

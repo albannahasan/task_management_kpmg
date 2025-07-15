@@ -1,0 +1,15 @@
+.kanban-column {
+    flex: 1;
+    border-radius: var(--radius);
+    padding: 1rem;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.kanban-column-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

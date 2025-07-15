@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./CreateTaskModal.css";
+import "./styles/CreateTaskModal.css";
 interface CreateTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
