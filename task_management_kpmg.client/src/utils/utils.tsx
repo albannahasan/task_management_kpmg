@@ -117,13 +117,11 @@ class Utils {
     }
   };
 
-  // Formats a date string to a more readable format (e.g., "2024-06-01" -> "June 1, 2024")
   static formatDate(dateString?: string) {
     if (!dateString) return "";
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return dateString; // fallback if invalid
 
-    // Example: July 20, 2025
     return date.toLocaleDateString(undefined, {
       year: "numeric",
       month: "long",

@@ -1,40 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskCard from "../Components/TaskCard";
 import { useTasks } from "../hooks/useTasks";
 import { useTaskFilters, type SortOption } from "../hooks/useTaskFilters";
 import CreateTaskModal from "../Components/CreateTaskModal";
 import ViewTaskModal from "../Components/ViewTaskModal";
-import Utils from "../utils/utils";
+import SearchIcon from "../assets/search.svg?react";
+import SummaryCard from "../Components/SummaryCard";
 
-interface SummaryCardProps {
-  title: string;
-  color: string;
-  value: string;
-}
 
-const SummaryCard: React.FC<SummaryCardProps> = ({ title, color, value }) => {
-  return (
-    <div className="summary-card">
-      <div className="summary-card-count">
-        <h2
-          style={{
-            backgroundColor: Utils.getLightColor(color) || color,
-            color: color,
-          }}
-        >
-          {value}
-        </h2>
-      </div>
-      <div className="summary-card-container">
-        <p className="summary-card-title">{title}</p>
-        <p className="summary-card-value">{value}</p>
-      </div>
-    </div>
-  );
-};
 
 const Home: React.FC = () => {
-  // Custom hooks
+  // Custom Tasks hooks
   const { tasks, loading, error, addTask, deleteTask, updateTask } = useTasks();
   const {
     filters,
@@ -52,15 +28,27 @@ const Home: React.FC = () => {
   const [displayViewTaskModal, setDisplayViewTaskModal] =
     useState<boolean>(false);
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const tasksPerPage = 9; //
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
+
+  const indexOfLastTask = currentPage * tasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - tasksPerPage;
+  const currentTasks = filteredTasks.slice(indexOfFirstTask, indexOfLastTask);
 
   const handleTaskClick = (taskId: string) => {
     setSelectedTaskId(taskId);
     setDisplayViewTaskModal(true);
   };
 
+  const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+
   return (
     <div style={{ padding: "2rem" }}>
-      <div className="title-container">
+      <div className="title-container fade-in">
         <div className="title-container-left">
           <h1 className="title-container-left-title">Task Management</h1>
           <p>Your personal task management dashboard</p>
@@ -118,21 +106,21 @@ const Home: React.FC = () => {
           );
         })()}
       </div>
-      <div className="task-filter-container">
+      <div className="task-filter-container fade-in">
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h4
-          style={{
-            marginBottom: "1rem",
-            marginTop: "0",
-            textAlign: "left",
-            marginRight: "1rem",
-          }}
-        >
-          Filters
-        </h4>
-        <button onClick={() => clearFilters()}>Clear Filters</button>
+          <h4
+            style={{
+              marginBottom: "1rem",
+              marginTop: "0",
+              textAlign: "left",
+              marginRight: "1rem",
+            }}
+          >
+            Filters & Sort
+          </h4>
+          <button onClick={() => clearFilters()}>Clear Filters</button>
         </div>
-       
+
         <div className="task-filter-grid">
           <div className="task-filter-container-left">
             <p className="filter-description">Search</p>
@@ -144,40 +132,9 @@ const Home: React.FC = () => {
                 alignItems: "center",
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                fill="none"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                style={{
-                  position: "absolute",
-                  left: "8px",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  pointerEvents: "none",
-                  color: "#6b7280",
-                }}
-              >
-                <circle
-                  cx="11"
-                  cy="11"
-                  r="7"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                />
-                <line
-                  x1="16.5"
-                  y1="16.5"
-                  x2="21"
-                  y2="21"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <span style={{ position: "absolute", left: "0.75rem" }}>
+                <SearchIcon width={18} height={18} />
+              </span>
               <input
                 type="text"
                 className="filter-search"
@@ -238,23 +195,50 @@ const Home: React.FC = () => {
       </div>
 
       <div className="task-container">
-        <h3
-          style={{
-            textAlign: "left",
-            marginBottom: "1rem",
-            marginTop: "0",
-            fontWeight: "600",
-          }}
-        >
-          Tasks ({filteredTasks.length})
-        </h3>
+        <div className="task-container-header">
+          <div>
+            <h3
+              style={{
+                textAlign: "left",
+                marginBottom: "1rem",
+                marginTop: "0",
+                fontWeight: "600",
+              }}
+            >
+              Tasks ({filteredTasks.length})
+            </h3>
+          </div>
+          <div className="pagination-container-right">
+            <p className="pagination-text">
+              Page {currentPage} of {totalPages}
+            </p>
+            <button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className="pagination-button"
+            >
+              Previous
+            </button>
+
+            <button
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
+              disabled={currentPage === totalPages}
+              className="pagination-button"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
         {loading ? (
           <div>Loading tasks...</div>
         ) : error ? (
           <div>Error: {error}</div>
         ) : (
-          <div className="task-grid">
-            {filteredTasks.map((task) => (
+          <div className="task-grid fade-in">
+            {currentTasks.map((task) => (
               <TaskCard
                 key={task.id}
                 title={task.title}
@@ -267,6 +251,11 @@ const Home: React.FC = () => {
             ))}
           </div>
         )}
+        <div className="pagination-container">
+          <div className="pagination-text"></div>
+
+          <div></div>
+        </div>
       </div>
     </div>
   );

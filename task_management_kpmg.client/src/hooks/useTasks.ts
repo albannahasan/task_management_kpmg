@@ -15,7 +15,6 @@ export const useTasks = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Add getTaskById helper
-  // More efficient to fetch the task by id from the API, as the local state may be stale or incomplete.
   const getTaskById = async (id: number | string): Promise<Task | undefined> => {
     setLoading(true);
 

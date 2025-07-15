@@ -17,7 +17,11 @@ export type SortOption =
   | 'createdAt_desc'
   | 'updatedAt_desc';
 
-export const useTaskFilters = (tasks: Task[]) => {
+export const useTaskFilters = (
+  tasks: Task[],
+  page: number = 1,
+  pageSize: number = 9
+) => {
   const [filters, setFilters] = useState<TaskFilters>({
     search: '',
     status: '',
@@ -80,6 +84,12 @@ export const useTaskFilters = (tasks: Task[]) => {
     return result;
   }, [tasks, filters, sort]);
 
+  const paginatedTasks = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    const end = start + pageSize;
+    return filteredTasks.slice(start, end);
+  }, [filteredTasks, page, pageSize]);
+
   const updateFilter = (key: keyof TaskFilters, value: string) => {
     setFilters(prev => ({
       ...prev,
@@ -110,7 +120,8 @@ export const useTaskFilters = (tasks: Task[]) => {
 
   return {
     filters,
-    filteredTasks,
+    filteredTasks, 
+    paginatedTasks,
     updateFilter,
     clearFilters,
     getTaskStats,

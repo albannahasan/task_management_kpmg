@@ -109,7 +109,6 @@ td {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-
 .filter-select {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -120,7 +119,6 @@ td {
   border-radius: var(--radius);
   border: 1px solid #bcbec2;
 }
-
 
 .filter-search:focus {
   outline: none;
@@ -133,8 +131,9 @@ td {
   /* background: #eff6ff; */
 }
 
-.task-container{
-    padding: 1.5rem 0;
+.task-container {
+  padding: 1.5rem 0;
+  margin-top: 1rem;
 }
 
 .task-grid {
@@ -155,4 +154,49 @@ td {
   }
 }
 
+.pagination-container {
+  background-color: red;
+  justify-content: center;
+  margin-top: 2rem;
+}
 
+.pagination-text {
+  margin-right: 1rem;
+  font-weight: 600;
+}
+
+.task-container-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.pagination-button{
+  margin-right: 1rem;
+  background-color: #2563eb;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.875rem;
+  color: #fff;
+}
+
+.pagination-container-right{
+  display: flex;
+  align-items: center;
+}
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
