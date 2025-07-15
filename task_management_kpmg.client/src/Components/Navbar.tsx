@@ -16,9 +16,6 @@ const Navbar: React.FC = () => {
         </div>
         
         <div className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-          <a href="/" className="nav-link">Home</a>
-          <a href="/tasks" className="nav-link">Tasks</a>
-          <a href="/calendar" className="nav-link">Calendar</a>
         </div>
 
         <div className="navbar-actions">

@@ -105,7 +105,7 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
 
   if (loading) {
     return (
-      <div className="modal-parent">
+      <div className="modal-parent fade-in">
         <div className="create-task-modal">
           <div className="view-task-modal-header">
             <div>
@@ -351,10 +351,16 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
                       display: "flex",
                       alignItems: "center",
                       gap: "0.25rem",
+                      color: Utils.isDatePast(task?.dueDate) ? "red" : "black",
                     }}
                   >
                     <CalendarIcon width={18} height={18} />
                     <p>{Utils.formatDate(task?.dueDate)}</p>
+                    {Utils.isDatePast(task?.dueDate) && (
+                      <span style={{ color: "red", fontSize: "0.8rem" }}>
+                        (Overdue)
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div>

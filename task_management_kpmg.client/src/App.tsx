@@ -3,7 +3,6 @@ import './App.css';
 import Navbar from './Components/Navbar';
 import Home from './pages/Home';
 import Tasks from './pages/Tasks';
-import Calendar from './pages/Calendar';
 
 function App() {
     // Simple routing based on current pathname
@@ -15,8 +14,6 @@ function App() {
                 return <Home />;
             case '/tasks':
                 return <Tasks />;
-            case '/calendar':
-                return <Calendar />;
             default:
                 return <Home />;
         }

@@ -134,6 +134,15 @@ class Utils {
     if (!str) return "";
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
+
+  // Checks if the given date (string or Date) is in the past compared to now
+  static isDatePast(dateInput?: string | Date): boolean {
+    if (!dateInput) return false;
+    const date = dateInput instanceof Date ? dateInput : new Date(dateInput);
+    if (isNaN(date.getTime())) return false;
+    const now = new Date();
+    return date < now;
+  }
 }
 
 export default Utils;

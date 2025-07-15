@@ -111,10 +111,17 @@ const TaskCard: React.FC<TaskCardProps & { onClick?: () => void }> = ({
             justifyContent: "flex-end",
             wordBreak: "break-word",
             marginBottom: "0.25rem",
+            color: Utils.isDatePast(dueDate) ? "red" : "black",
           }}
         >
           <CalendarIcon width={12} height={12} style={{ marginRight: "0.4em" }} />
-          {Utils.formatDate(dueDate)}
+          <span style={{ marginRight: "0.4em" }}>{Utils.formatDate(dueDate)}</span>
+          
+          {Utils.isDatePast(dueDate) && (
+            <span style={{ color: "red", fontSize: "0.8rem" }}>
+               (Overdue)
+            </span>
+          )}
         </span>
       </div>
     </div>
