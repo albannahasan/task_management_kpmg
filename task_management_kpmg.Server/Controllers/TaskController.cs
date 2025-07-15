@@ -21,7 +21,8 @@ namespace task_management_kpmg.Server.Controllers
         private readonly string _connectionString;
         public TaskController(IConfiguration config)
         {
-            _connectionString = config.GetConnectionString("DefaultConnection");
+            _connectionString = config["DB_CONNECTION"]
+    ?? config.GetConnectionString("DefaultConnection");
         }
 
 

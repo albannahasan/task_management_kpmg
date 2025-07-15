@@ -1,0 +1,329 @@
+{
+	"log": {
+		"version": "1.2",
+		"creator": {
+			"name": "Insomnia REST Client",
+			"version": "insomnia.desktop.app:v11.1.0"
+		},
+		"entries": [
+			{
+				"startedDateTime": "2025-07-15T19:59:59.130Z",
+				"time": 54.119,
+				"request": {
+					"method": "POST",
+					"url": "https://localhost:7232/api/tasks",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"name": "User-Agent",
+							"value": "insomnia/11.1.0"
+						}
+					],
+					"queryString": [],
+					"postData": {
+						"mimeType": "application/json",
+						"text": "{\n  \"title\": \"Fix user login bug\",\n  \"description\": \"Users are unable to log in when their passwords contain special characters. Investigate the authentication module and apply a fix to properly handle all valid input cases.\",\n  \"status\": \"toDo\",\n  \"priority\": \"high\",\n  \"dueDate\": \"2025-07-23\"\n}\n"
+					},
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"response": {
+					"status": 201,
+					"statusText": "",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"name": "date",
+							"value": "Tue, 15 Jul 2025 19:47:42 GMT"
+						},
+						{
+							"name": "server",
+							"value": "Kestrel"
+						},
+						{
+							"name": "location",
+							"value": "https://localhost:7232/api/tasks/12"
+						}
+					],
+					"content": {
+						"size": 614,
+						"mimeType": "application/json; charset=utf-8",
+						"text": "{\"id\":12,\"title\":\"random task Due date far\",\"description\":\"Joseph Paul Glimco (born Giuseppe Glielmi; Italian pronunciation: [dʒuˈzɛppe ˌʎɛlmi]; January 14, 1909 – April 28, 1991) was an Italian-American labor leader and well-known organized crime figure based in Chicago. He was considered \\\"Chicago's top labor racketeer\\\" in the 1950s.[5] One high-ranking Chicago Teamsters leader noted in 1954, \\\"He is the mob. When he opens his mouth, it's the syndicate talkin\",\"status\":\"toDo\",\"priority\":\"medium\",\"dueDate\":\"2025-07-23T00:00:00\",\"createdDate\":\"0001-01-01T00:00:00\",\"updatedAt\":\"0001-01-01T00:00:00\"}"
+					},
+					"redirectURL": "",
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"cache": {},
+				"timings": {
+					"blocked": -1,
+					"dns": -1,
+					"connect": -1,
+					"send": 0,
+					"wait": 54.119,
+					"receive": 0,
+					"ssl": -1
+				},
+				"comment": "Create Task"
+			},
+			{
+				"startedDateTime": "2025-07-15T19:59:59.130Z",
+				"time": 7.047000000000001,
+				"request": {
+					"method": "GET",
+					"url": "https://localhost:7232/api/tasks/2",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "User-Agent",
+							"value": "insomnia/11.1.0"
+						}
+					],
+					"queryString": [],
+					"postData": {
+						"mimeType": "",
+						"text": ""
+					},
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"response": {
+					"status": 200,
+					"statusText": "",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"name": "date",
+							"value": "Tue, 15 Jul 2025 19:56:20 GMT"
+						},
+						{
+							"name": "server",
+							"value": "Kestrel"
+						}
+					],
+					"content": {
+						"size": 342,
+						"mimeType": "application/json; charset=utf-8",
+						"text": "{\"id\":2,\"title\":\"Update user profile page UI\",\"description\":\"Redesign the user profile page to improve usability and make it mobile-friendly. Update styles, layout, and add responsiveness.\",\"status\":\"inProgress\",\"priority\":\"medium\",\"dueDate\":\"2025-08-10T00:00:00\",\"createdDate\":\"2025-07-14T19:02:04.817\",\"updatedAt\":\"2025-07-15T19:56:03.657\"}"
+					},
+					"redirectURL": "",
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"cache": {},
+				"timings": {
+					"blocked": -1,
+					"dns": -1,
+					"connect": -1,
+					"send": 0,
+					"wait": 7.047000000000001,
+					"receive": 0,
+					"ssl": -1
+				},
+				"comment": "Get Task By ID"
+			},
+			{
+				"startedDateTime": "2025-07-15T19:59:59.130Z",
+				"time": 13.473,
+				"request": {
+					"method": "PUT",
+					"url": "https://localhost:7232/api/tasks/2",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"name": "User-Agent",
+							"value": "insomnia/11.1.0"
+						}
+					],
+					"queryString": [],
+					"postData": {
+						"mimeType": "application/json",
+						"text": "{\n\t\"id\": 2,\n  \"title\": \"Update user profile page UI\",\n  \"description\": \"Redesign the user profile page to improve usability and make it mobile-friendly. Update styles, layout, and add responsiveness.\",\n  \"status\": \"inProgress\",\n  \"priority\": \"medium\",\n  \"dueDate\": \"2025-08-10\"\n}"
+					},
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"response": {
+					"status": 204,
+					"statusText": "",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "date",
+							"value": "Tue, 15 Jul 2025 19:56:02 GMT"
+						},
+						{
+							"name": "server",
+							"value": "Kestrel"
+						}
+					],
+					"content": {
+						"size": 0,
+						"mimeType": "",
+						"text": ""
+					},
+					"redirectURL": "",
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"cache": {},
+				"timings": {
+					"blocked": -1,
+					"dns": -1,
+					"connect": -1,
+					"send": 0,
+					"wait": 13.473,
+					"receive": 0,
+					"ssl": -1
+				},
+				"comment": "Update Task"
+			},
+			{
+				"startedDateTime": "2025-07-15T19:59:59.130Z",
+				"time": 164.58800000000002,
+				"request": {
+					"method": "DELETE",
+					"url": "https://localhost:7232/api/tasks/5",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"name": "User-Agent",
+							"value": "insomnia/11.1.0"
+						}
+					],
+					"queryString": [],
+					"postData": {
+						"mimeType": "application/json",
+						"text": "{\n\t\"id\": 5,\n\t\"title\": \"Goon 2\",\n\t\"description\": \"Complete the backend API and frontend UI for the prototype\",\n\t\"status\": \"inProgress\",\n\t\"dueDate\": \"2025-07-20T17:00:00\"\n}"
+					},
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"response": {
+					"status": 204,
+					"statusText": "",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "date",
+							"value": "Tue, 15 Jul 2025 19:54:06 GMT"
+						},
+						{
+							"name": "server",
+							"value": "Kestrel"
+						}
+					],
+					"content": {
+						"size": 0,
+						"mimeType": "",
+						"text": ""
+					},
+					"redirectURL": "",
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"cache": {},
+				"timings": {
+					"blocked": -1,
+					"dns": -1,
+					"connect": -1,
+					"send": 0,
+					"wait": 164.58800000000002,
+					"receive": 0,
+					"ssl": -1
+				},
+				"comment": "Delete Task"
+			},
+			{
+				"startedDateTime": "2025-07-15T19:59:59.130Z",
+				"time": 3.696,
+				"request": {
+					"method": "GET",
+					"url": "https://localhost:7232/api/tasks",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "User-Agent",
+							"value": "insomnia/11.1.0"
+						}
+					],
+					"queryString": [],
+					"postData": {
+						"mimeType": "",
+						"text": ""
+					},
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"response": {
+					"status": 200,
+					"statusText": "",
+					"httpVersion": "HTTP/1.1",
+					"cookies": [],
+					"headers": [
+						{
+							"name": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"name": "date",
+							"value": "Tue, 15 Jul 2025 19:56:12 GMT"
+						},
+						{
+							"name": "server",
+							"value": "Kestrel"
+						}
+					],
+					"content": {
+						"size": 3007,
+						"mimeType": "application/json; charset=utf-8",
+						"text": "[{\"id\":1,\"title\":\"Task Test (Recently Updated)\",\"description\":\"Task Text\",\"status\":\"toDo\",\"priority\":\"high\",\"dueDate\":\"2025-07-15T00:00:00\",\"createdDate\":\"2025-07-14T18:59:40.227\",\"updatedAt\":\"2025-07-14T19:39:49.237\"},{\"id\":2,\"title\":\"Update user profile page UI\",\"description\":\"Redesign the user profile page to improve usability and make it mobile-friendly. Update styles, layout, and add responsiveness.\",\"status\":\"inProgress\",\"priority\":\"medium\",\"dueDate\":\"2025-08-10T00:00:00\",\"createdDate\":\"2025-07-14T19:02:04.817\",\"updatedAt\":\"2025-07-15T19:56:03.657\"},{\"id\":3,\"title\":\"A Task to test alphabet\",\"description\":\"Edward Missen (2 February 1875 – 17 November 1927) was an English cricketer. He was a right-handed medium-pace bowler who played first-class cricket for Essex.\\n\\nMissen made his first and only County Championship appearance almost 17 years after appearing for Cambridgeshire in the Minor Counties Championship in 1904. A middle order batsman alongside captain JWHT Douglas, Missen hit 8 runs in his first innings and 12 in his second.\",\"status\":\"done\",\"priority\":\"high\",\"dueDate\":\"2025-07-22T00:00:00\",\"createdDate\":\"2025-07-14T19:33:04.767\",\"updatedAt\":\"2025-07-15T16:07:48.57\"},{\"id\":6,\"title\":\"New Task Test Pagination\",\"description\":\"New Test lets go\",\"status\":\"done\",\"priority\":\"high\",\"dueDate\":\"2025-07-24T00:00:00\",\"createdDate\":\"2025-07-15T11:57:27.137\",\"updatedAt\":\"2025-07-15T11:57:27.137\"},{\"id\":7,\"title\":\"Test\",\"description\":\"Test\",\"status\":\"done\",\"priority\":\"high\",\"dueDate\":\"2025-07-15T00:00:00\",\"createdDate\":\"2025-07-15T11:57:39.123\",\"updatedAt\":\"2025-07-15T11:57:39.123\"},{\"id\":8,\"title\":\"Tesr\",\"description\":\"Teresta\",\"status\":\"toDo\",\"priority\":\"high\",\"dueDate\":\"2025-07-31T00:00:00\",\"createdDate\":\"2025-07-15T11:57:50.09\",\"updatedAt\":\"2025-07-15T11:57:50.09\"},{\"id\":9,\"title\":\"Test\",\"description\":\"Tosterone\",\"status\":\"toDo\",\"priority\":\"high\",\"dueDate\":\"2025-08-01T00:00:00\",\"createdDate\":\"2025-07-15T11:58:03.95\",\"updatedAt\":\"2025-07-15T11:58:03.95\"},{\"id\":10,\"title\":\"Ters\",\"description\":\"Tesae\",\"status\":\"toDo\",\"priority\":\"low\",\"dueDate\":\"2025-07-16T00:00:00\",\"createdDate\":\"2025-07-15T11:58:14.243\",\"updatedAt\":\"2025-07-15T11:58:14.243\"},{\"id\":11,\"title\":\"Tre\",\"description\":\"rereeqeqwwqeqew\",\"status\":\"done\",\"priority\":\"medium\",\"dueDate\":\"2025-07-17T00:00:00\",\"createdDate\":\"2025-07-15T11:58:29.743\",\"updatedAt\":\"2025-07-15T11:58:29.743\"},{\"id\":12,\"title\":\"random task Due date far\",\"description\":\"Joseph Paul Glimco (born Giuseppe Glielmi; Italian pronunciation: [dʒuˈzɛppe ˌʎɛlmi]; January 14, 1909 – April 28, 1991) was an Italian-American labor leader and well-known organized crime figure based in Chicago. He was considered \\\"Chicago's top labor racketeer\\\" in the 1950s.[5] One high-ranking Chicago Teamsters leader noted in 1954, \\\"He is the mob. When he opens his mouth, it's the syndicate talkin\",\"status\":\"toDo\",\"priority\":\"medium\",\"dueDate\":\"2025-07-23T00:00:00\",\"createdDate\":\"2025-07-15T19:47:42.77\",\"updatedAt\":\"2025-07-15T19:47:42.77\"}]"
+					},
+					"redirectURL": "",
+					"headersSize": -1,
+					"bodySize": -1
+				},
+				"cache": {},
+				"timings": {
+					"blocked": -1,
+					"dns": -1,
+					"connect": -1,
+					"send": 0,
+					"wait": 3.696,
+					"receive": 0,
+					"ssl": -1
+				},
+				"comment": "Get All Tasks"
+			}
+		]
+	}
+}
