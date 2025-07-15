@@ -121,7 +121,7 @@ Install dependencies
 npm install 
 ```
 
-run application, which will be assigned to Port 7232
+run application, which will be assigned to Port 59247
 ```bash
 npm run dev
 ```
