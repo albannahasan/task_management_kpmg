@@ -96,8 +96,11 @@ const Home: React.FC = () => {
             </button>
           </div>
 
-          <button className="new-task-button" onClick={() => setDisplayCreateTaskModal(true)}>
-           + New Task
+          <button
+            className="new-task-button"
+            onClick={() => setDisplayCreateTaskModal(true)}
+          >
+            + New Task
           </button>
           {displayCreateTaskModal && (
             <CreateTaskModal
@@ -148,113 +151,111 @@ const Home: React.FC = () => {
         })()}
       </div>
 
-      {viewType === "grid" ? (
-        <div>
-          <div className="task-filter-container fade-in">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h4
-                style={{
-                  marginBottom: "1rem",
-                  marginTop: "0",
-                  textAlign: "left",
-                  marginRight: "1rem",
-                }}
-              >
-                Filters & Sort
-              </h4>
-              <button onClick={() => clearFilters()}>Clear Filters</button>
-            </div>
+      <div className="task-filter-container fade-in">
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h4
+            style={{
+              marginBottom: "1rem",
+              marginTop: "0",
+              textAlign: "left",
+              marginRight: "1rem",
+            }}
+          >
+            Filters & Sort
+          </h4>
+          <button onClick={() => clearFilters()}>Clear Filters</button>
+        </div>
 
-            <div className="task-filter-grid">
-              <div className="task-filter-container-left">
-                <p className="filter-description">Search</p>
+        <div className="task-filter-grid">
+          <div className="task-filter-container-left">
+            <p className="filter-description">Search</p>
 
-                <div
-                  style={{
-                    position: "relative",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <span style={{ position: "absolute", left: "0.75rem" }}>
-                    <SearchIcon width={18} height={18} />
-                  </span>
-                  <input
-                    type="text"
-                    className="filter-search"
-                    placeholder="Search"
-                    style={{ paddingLeft: "2.5rem" }}
-                    value={filters.search}
-                    onChange={(e) => updateFilter("search", e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="task-filter-container-left">
-                <p className="filter-description">Status</p>
-                <select
-                  className="filter-select"
-                  value={filters.status}
-                  onChange={(e) => updateFilter("status", e.target.value)}
-                >
-                  <option value="">All</option>
-                  <option value="toDo">To Do</option>
-                  <option value="inProgress">In Progress</option>
-                  <option value="done">Done</option>
-                </select>
-              </div>
-              <div className="task-filter-container-left">
-                <p className="filter-description">Priority</p>
-                <select
-                  className="filter-select"
-                  value={filters.priority}
-                  onChange={(e) => updateFilter("priority", e.target.value)}
-                >
-                  <option value="">All</option>
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-                </select>
-              </div>
-              <div className="task-filter-container-left">
-                <p className="filter-description">Sort By</p>
-                <select
-                  className="filter-select"
-                  value={sort}
-                  onChange={(e) => updateSort(e.target.value as SortOption)}
-                >
-                  <option value="title_asc">Title A–Z</option>
-                  <option value="title_desc">Title Z–A</option>
-                  <option value="dueDate_desc">Furthest Due Date First</option>
-                  <option value="dueDate_asc">Closest Due Date First</option>
-                  <option value="createdAt_desc">
-                    Created Date (Newest First)
-                  </option>
-                  <option value="createdAt_asc">
-                    Created Date (Oldest First)
-                  </option>
-                  <option value="updatedAt_desc">
-                    Last Updated (Newest First)
-                  </option>
-                </select>
-              </div>
-              <div className="task-filter-container-left">
-                <p className="filter-description">Assigned To</p>
-                <select
-                  className="filter-select"
-                  value={filters.assignedTo}
-                  onChange={(e) => updateFilter("assignedTo", e.target.value)}
-                >
-                  <option value="">All</option>
-                  {users.map((user) => (
-                    <option key={user.id} value={user.name}>
-                      {`${user.name} (${Utils.getUserAbbreviation(user.role)})`}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <div
+              style={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ position: "absolute", left: "0.75rem" }}>
+                <SearchIcon width={18} height={18} />
+              </span>
+              <input
+                type="text"
+                className="filter-search"
+                placeholder="Search"
+                style={{ paddingLeft: "2.5rem" }}
+                value={filters.search}
+                onChange={(e) => updateFilter("search", e.target.value)}
+              />
             </div>
           </div>
+          <div className="task-filter-container-left">
+            <p className="filter-description">Status</p>
+            <select
+              className="filter-select"
+              value={filters.status}
+              onChange={(e) => updateFilter("status", e.target.value)}
+            >
+              <option value="">All</option>
+              <option value="toDo">To Do</option>
+              <option value="inProgress">In Progress</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <div className="task-filter-container-left">
+            <p className="filter-description">Priority</p>
+            <select
+              className="filter-select"
+              value={filters.priority}
+              onChange={(e) => updateFilter("priority", e.target.value)}
+            >
+              <option value="">All</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div className="task-filter-container-left">
+            <p className="filter-description">Sort By</p>
+            <select
+              className="filter-select"
+              value={sort}
+              onChange={(e) => updateSort(e.target.value as SortOption)}
+            >
+              <option value="title_asc">Title A–Z</option>
+              <option value="title_desc">Title Z–A</option>
+              <option value="dueDate_desc">Furthest Due Date First</option>
+              <option value="dueDate_asc">Closest Due Date First</option>
+              <option value="createdAt_desc">
+                Created Date (Newest First)
+              </option>
+              <option value="createdAt_asc">Created Date (Oldest First)</option>
+              <option value="updatedAt_desc">
+                Last Updated (Newest First)
+              </option>
+            </select>
+          </div>
+          <div className="task-filter-container-left">
+            <p className="filter-description">Assigned To</p>
+            <select
+              className="filter-select"
+              value={filters.assignedTo}
+              onChange={(e) => updateFilter("assignedTo", e.target.value)}
+            >
+              <option value="">All</option>
+              {users.map((user) => (
+                <option key={user.id} value={user.name}>
+                  {`${user.name} (${Utils.getUserAbbreviation(user.role)})`}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </div>
 
+      {viewType === "grid" ? (
+        <div>
           <div className="task-container">
             <div className="task-container-header">
               <div>
@@ -318,11 +319,11 @@ const Home: React.FC = () => {
           </div>
         </div>
       ) : (
-       <KanbanBoard
-        filteredTasks={filteredTasks}
-        handleTaskClick={handleTaskClick}
-        updateTask={updateTask}
-       />
+        <KanbanBoard
+          filteredTasks={filteredTasks}
+          handleTaskClick={handleTaskClick}
+          updateTask={updateTask}
+        />
       )}
     </div>
   );
