@@ -133,7 +133,7 @@ Open the browser and go to https://localhost:59247 to view the app.
 
 ## API Documentation
 
-The API collection file can be found inside the `HAR` directory. Import this file into tools like Postman to explore and test the available endpoints.
+The API collection file in the form of HAR, named [`api_export_file`](api_export_file), is located in the project root. You can import this file into tools like Postman to explore and test the available endpoints.
 
 ---
 
