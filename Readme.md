@@ -1,5 +1,14 @@
 
+Create and Maintained by: Hasan Al Banna
+github link: https://github.com/albannahasan/task_management_kpmg
+
 ## About
+This project is an MVP for a task management system that aims to centralize and streamline project management. The UI is designed to be easy to access and allows different users to:
+
+- Team Members: Need to manage their own tasks and update progress
+- Team Leads: Want visibility into what their team is working on
+- Project Managers: Need to ensure deadlines are met and workloads are balanced
+
 ## Environment Setup (Requirements)
 
 Before running the task management project, ensure that these requirements are met:
@@ -23,7 +32,8 @@ Before running the task management project, ensure that these requirements are m
 ### Step 1: Create the Database 
 Run the script to ensure the database exists and it will create automatically if it doesnt :
 
- [`scripts/ensure-db-exists.sql`](task_management_kpmg.Server/Scripts/ensure-db-exists.sql)
+[task_management_kpmg.Server/Scripts/ensure-db-exists.sql](task_management_kpmg.Server/Scripts/ensure-db-exists.sql)  
+*(relative to the project root directory)*
 
  ```sql
  -- Content of ensure-db-exist.sql
@@ -54,9 +64,9 @@ sqlcmd -S localhost -d master -i scripts/ensure-db-exists.sql
 2. Alternatively, the SQL script can be run manually using a graphical tool like SQL Server Management Studio (SSMS) or Azure Data Studio
 
 ### Step 2: Configure Connection String
-This project uses Dapper (not Entity Framework), and it connects to a Microsoft SQL Server using the connection string in [`/appsettings.json`](task_management_kpmg.Server/appsettings.json):
+This project uses Dapper (not Entity Framework), and it connects to a Microsoft SQL Server using the connection string in [`task_management_kpmg.Server/appsettings.json`](task_management_kpmg.Server/appsettings.json):
 
-```
+```json
 "ConnectionStrings": {
   "DefaultConnection": "Server=localhost\\MSSQLSERVER01;Database=TaskDb;Trusted_Connection=True;TrustServerCertificate=True;"
 }
@@ -72,9 +82,9 @@ This project uses Dapper (not Entity Framework), and it connects to a Microsoft 
 Server=localhost;Database=TaskDb;User Id=sa;Password=your_password;TrustServerCertificate=True;
 ```
 
-#### Override via environment variable (optional):
+#### Alternate way: Override via environment variable (optional):
 
-it is possible to override the connection string by setting an environment variable.
+Alternatively it is possible to override the connection string by setting an environment variable.
 
 By default, the app reads the connection string from `appsettings.json`. To override, set the environment variable `ConnectionStrings__DefaultConnection` (note the double underscore).
 
@@ -128,6 +138,8 @@ npm run dev
 ```
 
 Open the browser and go to https://localhost:59247 to view the app.
+
+> **Warning:** If you are using Windows 11, please ensure your system theme is set to **Light**. The Windows 11 Light/Dark theme can interfere with the application's UI, causing display issues. Make sure, switch to the Light theme before using the app.
 
 
 
@@ -210,6 +222,7 @@ The API collection file in the form of HAR, named [`api_export_file`](api_export
   ```
 
 ## Usage Examples
+> **Warning:** If you are using Windows 11, please ensure your system theme is set to **Light**. The Windows 11 Light/Dark theme can interfere with the application's UI, causing display issues. Make sure, switch to the Light theme before using the app.
 
 > **Note:** When first running the application, some seed data is automatically inserted into the database. This allows user to explore and test the application's features right away without needing to manually create tasks.
 
@@ -226,6 +239,7 @@ Tasks can be viewed in two main ways. Use the toggle button at the top right cor
 
 - Tasks are shown as individual cards in a vertical list.
 - Each card displays key details such as title, status, priority, and due date.
+- Pagination is supported here, with each page set to contain 9 cards. 
 
 <div align="center">
   <img src="./screenshots/view_type_2.png" alt="Card View" width="600"/>
@@ -287,3 +301,34 @@ Task details can be viewed by clicking on it in the list or board. This opens a 
 
 
 ## Assumption and Limitations
+
+When developing this task, there is some assumptions that I took. these includes:
+
+##### Docker
+While I usually prefer using Docker for development and deployment due to its consistency and ease of environment management, for the scope  this project, I decided to keep things lightweight and straightforward. This approach reduces setup overhead and makes it easier for contributors to get started quickly without requiring Docker installation.
+
+Should the project grow in complexity or require more robust environment management, Dockerization can be easily added in the future.
+
+#### User
+The task specification mainly focuses on the Task object, but it also have a requirements where users (Team Member, Team Lead, Project Manager) will be able to  "Want visibility into what their team is working on" and others. However, since its MVP, i believe that creating a whole Users table will make the project loose the lightweightness, as it requires login system, auth token etc and thus I did not include it.
+
+To demonstrate how different user roles (such as Team Member, Team Lead, and Project Manager) interact with the app, I chose to hard-code a user object in the frontend. I believe this approach maintains the app’s lightweight nature while still allowing key user-specific features to be showcased, without introducing the complexity of a full authentication system.
+
+#### Migration
+This project uses Dapper instead of Entity Framework, so database migrations are typically handled with SQL scripts. However, I chose to use FluentMigrator to organize and manage migrations in a more structured and maintainable way.
+
+#### Styling
+For styling i usually prefer Tailwind due to its accesibility, however Im not sure if the assesor is familiar and thus i decided to stick with basic css.
+
+#### Kanban View
+Although not included in the requirement file, i decided to add a kanban view, as I was inspired by how a lot of task management software utilize this view for improved and better task management system, it is very simplified but I think it serve the purpose as one for MVP. 
+
+#### DTOS and API documentation
+For the Backend, i believe it is a good practice to implement Data Transfer Object (DTO), however after implementing it, I cannot see much of a difference between using one and not using one, as the use case is pretty simple, thus i opted on not using DTO. The simplicity of the API is also the reason why I do not use app liek swagger, as i think api documentation in the README is sufficient. 
+
+Additional limitations and assumptions include that the application is designed primarily for small teams and may not scale efficiently for large organizations or high-traffic scenarios; automated testing is minimal, so manual testing is required to ensure stability; mobile responsiveness is basic and the UI may not be fully optimized for all devices; and error handling is simple, which may not cover all edge cases or provide detailed feedback to users.
+
+
+
+
+
