@@ -88,10 +88,10 @@ dotnet run
 ### Step 3: Run the Backend (Migrations Apply Automatically)
 
 
-cd into backend directory
+From the root of the project, cd into backend .net directory
 
 ```bash
-cd .\task_management_kpmg.Server\
+cd task_management_kpmg.Server
 ```
 
 Once the database exists, to avoid SSL errors, run the command below to trust the ssl certificates
@@ -101,10 +101,10 @@ Once the database exists, to avoid SSL errors, run the command below to trust th
 dotnet dev-certs https --trust
 ```
 
-and then, we can start the backend project (Migration will apply automatically):
+and then, we can run the backend using the https launch profile: (Migration will apply automatically):
 
 ```bash
-dotnet run --project task_management_server
+dotnet run --launch-profile https
 ```
 
 ### Step 4: Run the Frontend Application
@@ -166,7 +166,8 @@ The API collection file can be found inside the `HAR` directory. You can import 
     "description": "Users are unable to log in when their passwords contain special characters...",
     "status": "toDo",
     "priority": "high",
-    "dueDate": "2025-07-23"
+    "dueDate": "2025-07-23",
+    "assignedTo": "Hasan Al Banna"
   }
   ```
 
@@ -180,7 +181,8 @@ The API collection file can be found inside the `HAR` directory. You can import 
     "description": "Update: Add more logging for debugging.",
     "status": "inProgress",
     "priority": "medium",
-    "dueDate": "2025-07-30"
+    "dueDate": "2025-07-30",
+    "assignedTo":  "Hasan Al Banna"
   }
   ```
 - **Example:**
@@ -192,7 +194,8 @@ The API collection file can be found inside the `HAR` directory. You can import 
       "description": "Update: Add more logging for debugging.",
       "status": "inProgress",
       "priority": "medium",
-      "dueDate": "2025-07-30"
+      "dueDate": "2025-07-30",
+      "assignedTo":  "Hasan Al Banna"
     }'
   ```
 
@@ -204,9 +207,6 @@ The API collection file can be found inside the `HAR` directory. You can import 
   ```bash
   curl -X DELETE https://localhost:7232/api/tasks/1
   ```
-
-
-
 
 ## Usage Examples
 ## Assumption and Limitations

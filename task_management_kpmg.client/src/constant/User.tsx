@@ -38,8 +38,8 @@ export const users: User[] = [
   },
   {
     id: 6,
-    name: "Liam O'Connor",
-    email: "liam.oconnor@example.com",
+    name: "Hasan Al Banna",
+    email: "hasan.albanna@example.com",
     role: "Team Lead",
   },
 ];
