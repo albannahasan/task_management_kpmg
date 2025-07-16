@@ -39,6 +39,8 @@
   border: 1px solid #bcbec2;
   border-radius: 0.5rem;
   width: 100%;
+  padding-right: 0.2rem; /* Reduce right padding so dropdown arrow is closer */
+  box-sizing: border-box;
 }
 
 .cancel-button {

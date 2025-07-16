@@ -11,6 +11,7 @@ interface TaskCardProps {
   dueDate?: string;
   priority?: "low" | "medium" | "high";
   onClick?: () => void;
+  assignedTo?: string;
 }
 
 
@@ -22,7 +23,9 @@ const TaskCard: React.FC<TaskCardProps & { onClick?: () => void }> = ({
   priority,
   dueDate,
   onClick,
+  assignedTo,
 }) => {
+
   return (
     <div className="task-card" onClick={onClick}>
       <div
@@ -81,6 +84,13 @@ const TaskCard: React.FC<TaskCardProps & { onClick?: () => void }> = ({
           alignItems: "center",
         }}
       >
+        {assignedTo && (
+          <span
+            className="task-card-assigned-to"
+          >
+            {assignedTo}
+          </span>
+        )}
         {priority && (
           <span
             style={{

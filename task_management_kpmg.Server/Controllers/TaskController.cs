@@ -74,10 +74,6 @@ namespace task_management_kpmg.Server.Controllers
                 return BadRequest(errors); // Optional: return only the error summary
             }
 
-
-            if (id != updatedTask.Id)
-                return BadRequest("ID in URL does not match ID in body");
-
             var existingTask = GetTaskByIdInternal(id);
 
             if (existingTask == null)

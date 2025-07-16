@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react';
-
-interface Task {
-  id: number;
-  title: string;
-  description?: string;
-  status: "toDo" | "inProgress" | "done";
-  priority?: "low" | "medium" | "high";
-  dueDate?: string;
-}
+import type { Task } from '../interface/Task';
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);

@@ -28,6 +28,24 @@ class Utils {
     return colorMap[color as keyof typeof colorMap] || color;
   };
 
+
+  static getUserRoleColor = (role: string) => {
+    switch (role) {
+      case "Project Manager":
+        return "#a855f7"; // purple
+      case "Team Lead":
+        return "#f59e42"; // orange
+      case "Team Member":
+        return "#40e0d0"; //(turquoise)
+      default:
+        return "#6b7280"; // gray
+    }
+  };
+
+  static getUserAbbreviation = (name: string) => {
+    return name.split(" ").map(word => word[0]).join("");
+  };
+
   // Deep clones an object or array
   static deepClone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
@@ -68,11 +86,11 @@ class Utils {
   static getPriorityColor = (status?: string) => {
     switch (status) {
       case "low":
-        return "#22c55e"; // green
+        return "#fca5a5"; // light red
       case "medium":
-        return "#f59e42"; // orange
+        return "#ef4444"; // medium red
       case "high":
-        return "red";
+        return "#b91c1c"; // dark red
       default:
         return "#6b7280"; // gray
     }
@@ -82,11 +100,11 @@ class Utils {
   static getPriorityBgColor = (status?: string) => {
     switch (status) {
       case "low":
-        return "#DCFCE7"; // light green
+        return "#fee2e2"; // very light red
       case "medium":
-        return "#FEF3C7"; // light orange
+        return "#fecaca"; // lighter red
       case "high":
-        return "#FEE2E2"; // light red
+        return "#fca5a5"; // light red
       default:
         return "#F3F4F6"; // light gray
     }

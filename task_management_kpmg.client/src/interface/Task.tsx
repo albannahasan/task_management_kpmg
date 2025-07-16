@@ -7,4 +7,5 @@ export interface Task {
     dueDate?: string;
     createdDate?: string;
     updatedAt?: string;
+    assignedTo?: string;
   }

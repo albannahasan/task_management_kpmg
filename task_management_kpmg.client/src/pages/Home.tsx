@@ -3,16 +3,18 @@ import { useTasks } from "../hooks/useTasks";
 import { useTaskFilters, type SortOption } from "../hooks/useTaskFilters";
 
 //Components
-import CreateTaskModal from "../Components/CreateTaskModal";
-import SummaryCard from "../Components/SummaryCard";
-import TaskCard from "../Components/TaskCard";
-import ViewTaskModal from "../Components/ViewTaskModal";
+import CreateTaskModal from "../components/CreateTaskModal";
+import SummaryCard from "../components/SummaryCard";
+import TaskCard from "../components/TaskCard";
+import ViewTaskModal from "../components/ViewTaskModal";
 
 //SVG Icons
 import GridIcon from "../assets/grid.svg?react";
 import KanbanIcon from "../assets/kanban.svg?react";
 import SearchIcon from "../assets/search.svg?react";
-import KanbanBoard from "../Components/KanbanBoard";
+import KanbanBoard from "../components/KanbanBoard";
+import { users } from "../constant/user";
+import Utils from "../utils/utils";
 
 const Home: React.FC = () => {
   // Custom Tasks hooks
@@ -137,9 +139,9 @@ const Home: React.FC = () => {
                 value={stats.inProgress.toString()}
               />
               <SummaryCard
-                title="Completed"
+                title="Done"
                 color="green"
-                value={stats.completed.toString()}
+                value={stats.done.toString()}
               />
             </>
           );
@@ -235,6 +237,21 @@ const Home: React.FC = () => {
                   </option>
                 </select>
               </div>
+              <div className="task-filter-container-left">
+                <p className="filter-description">Assigned To</p>
+                <select
+                  className="filter-select"
+                  value={filters.assignedTo}
+                  onChange={(e) => updateFilter("assignedTo", e.target.value)}
+                >
+                  <option value="">All</option>
+                  {users.map((user) => (
+                    <option key={user.id} value={user.name}>
+                      {`${user.name} (${Utils.getUserAbbreviation(user.role)})`}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
 
@@ -293,6 +310,7 @@ const Home: React.FC = () => {
                     dueDate={task.dueDate}
                     priority={task.priority}
                     onClick={() => handleTaskClick(task.id.toString())}
+                    assignedTo={task.assignedTo}
                   />
                 ))}
               </div>
@@ -303,6 +321,7 @@ const Home: React.FC = () => {
        <KanbanBoard
         filteredTasks={filteredTasks}
         handleTaskClick={handleTaskClick}
+        updateTask={updateTask}
        />
       )}
     </div>

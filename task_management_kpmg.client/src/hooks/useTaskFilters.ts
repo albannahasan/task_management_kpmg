@@ -6,6 +6,7 @@ interface TaskFilters {
   search: string;
   status: string;
   priority: string;
+  assignedTo: string;
 }
 
 export type SortOption =
@@ -26,6 +27,7 @@ export const useTaskFilters = (
     search: '',
     status: '',
     priority: '',
+    assignedTo: '',
   });
 
   const [sort, setSort] = useState<SortOption>('dueDate_asc');
@@ -43,7 +45,10 @@ export const useTaskFilters = (
       // Priority filter
       const priorityMatch = !filters.priority || task.priority === filters.priority;
 
-      return searchMatch && statusMatch && priorityMatch;
+      // Assigned To filter
+      const assignedToMatch = !filters.assignedTo || task.assignedTo === filters.assignedTo;
+
+      return searchMatch && statusMatch && priorityMatch && assignedToMatch;
     });
 
     // Sorting
@@ -106,6 +111,7 @@ export const useTaskFilters = (
       search: '',
       status: '',
       priority: '',
+      assignedTo: '',
     });
   };
 
@@ -113,9 +119,9 @@ export const useTaskFilters = (
     const total = tasks.length;
     const todo = tasks.filter(task => task.status === 'toDo').length;
     const inProgress = tasks.filter(task => task.status === 'inProgress').length;
-    const completed = tasks.filter(task => task.status === 'done').length;
+    const done = tasks.filter(task => task.status === 'done').length;
 
-    return { total, todo, inProgress, completed };
+    return { total, todo, inProgress, done};
   };
 
   return {

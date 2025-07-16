@@ -29,6 +29,17 @@
 
 }
 
+.task-card-assigned-to {
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  padding: 0.15rem 0.5rem;
+  margin-bottom: 0.25rem;
+  min-width: 0;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
 .task-card-status-indicator {
   display: inline-block;
   border-radius: calc(infinity * 1px);

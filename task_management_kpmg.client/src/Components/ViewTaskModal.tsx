@@ -8,6 +8,7 @@ import CalendarIcon from "../assets/calendar.svg?react";
 
 import "./styles/ViewTaskModal.css";
 import Utils from "../utils/utils";
+import { users } from "../constant/user";
 interface CreateTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -33,6 +34,8 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
   const [editStatus, setEditStatus] = useState<Task["status"]>("toDo");
   const [editPriority, setEditPriority] = useState<Task["priority"]>("medium");
   const [editDueDate, setEditDueDate] = useState("");
+  const [editAssignedTo, setEditAssignedTo] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     if (isEditing && task) {
@@ -40,9 +43,15 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
       setEditDescription(task.description || "");
       setEditStatus(task.status);
       setEditPriority(task.priority || "medium");
+      setEditAssignedTo(task.assignedTo || "Unassigned");
       setEditDueDate(
         task.dueDate ? new Date(task.dueDate).toISOString().slice(0, 10) : ""
       );
+    }
+
+    const assignedUser = users.find((user) => user.name === task?.assignedTo);
+    if (assignedUser) {
+      setUserRole(assignedUser.role);
     }
   }, [isEditing, task]);
 
@@ -82,11 +91,16 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
         status: editStatus,
         priority: editPriority,
         dueDate: editDueDate,
+        assignedTo: editAssignedTo,
       });
       setIsEditing(false);
       // Optionally, refresh the task details
       const updated = await getTaskById(task.id);
-      if (updated) setTask(updated);
+      if (updated) {
+        setTask(updated)
+        alert("Task updated successfully!");
+        onClose();
+      };
     } catch (err) {
       alert("Failed to update task.");
     }
@@ -251,7 +265,7 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
                 >
                   <option value="toDo">To Do</option>
                   <option value="inProgress">In Progress</option>
-                  <option value="done">Completed</option>
+                  <option value="done">Done</option>
                 </select>
               </div>
               <div className="label-title" style={{ flex: 1 }}>
@@ -283,12 +297,33 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
                     value={editDueDate}
                     onChange={(e) => setEditDueDate(e.target.value)}
                     style={{
-                      width: "100%",
+                      width: "95%",
                       marginLeft: 0,
                       marginTop: "0.25rem",
                     }}
                     className="input-field"
                   />
+                </label>
+              </div>
+              <div className="label-title" style={{ flex: 1 }}>
+                <label>
+                  Assigned To
+                  <select
+                    value={editAssignedTo}
+                    onChange={(e) => setEditAssignedTo(e.target.value)}
+                    className="input-field"
+                    style={{
+                      width: "100%",
+                      marginLeft: 0,
+                      marginTop: "0.25rem",
+                    }}
+                  >
+                    {users.map((user) => (
+                      <option key={user.id} value={user.name}>
+                        {user.name}
+                      </option>
+                    ))}
+                  </select>
                 </label>
               </div>
             </div>
@@ -375,6 +410,31 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
                     <CalendarIcon width={18} height={18} />
                     <p>{Utils.formatDate(task?.createdDate)}</p>
                   </div>
+                </div>
+                <div>
+                  <p className="task-details-body-grid-title">Assigned To</p>
+                  {task?.assignedTo && (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.25rem",
+                      }}
+                    >
+                      <p>{task?.assignedTo}</p>
+                      {userRole && (
+                        <span
+                          className="task-card-priority-indicator"
+                          style={{
+                            color: "white",
+                            background: Utils.getUserRoleColor(userRole),
+                          }}
+                        >
+                          {Utils.getUserAbbreviation(userRole)}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <p className="task-details-body-grid-title">Priority</p>
