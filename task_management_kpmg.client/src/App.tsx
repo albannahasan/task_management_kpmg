@@ -1,18 +1,14 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Tasks from './pages/Tasks';
 
 function App() {
-    // Simple routing based on current pathname
     const getCurrentPage = () => {
         const path = window.location.pathname;
         
         switch (path) {
             case '/':
                 return <Home />;
-            case '/tasks':
-                return <Tasks />;
             default:
                 return <Home />;
         }

@@ -10,9 +10,12 @@ export const useTasks = () => {
   const getTaskById = async (id: number | string): Promise<Task | undefined> => {
     setLoading(true);
 
+    // Parse id
     const numericId = typeof id === "string" ? parseInt(id, 10) : id;
     try {
       const response = await fetch(`/api/tasks/${numericId}`);
+
+      //Throw error if response is not ok
       if (!response.ok) throw new Error("Failed to fetch task by id");
       const task = await response.json();
       setLoading(false);

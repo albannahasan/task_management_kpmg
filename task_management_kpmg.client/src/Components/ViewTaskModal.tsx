@@ -75,7 +75,6 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
     if (dueDateToSave) {
       const now = new Date();
       const dueDateObj = new Date(dueDateToSave);
-      // Set time to end of day for dueDate, and start of day for now for fairness
       dueDateObj.setHours(23, 59, 59, 999);
       now.setHours(0, 0, 0, 0);
       if (dueDateObj < now) {
@@ -94,7 +93,6 @@ const ViewTaskModal: React.FC<CreateTaskModalProps> = ({
         assignedTo: editAssignedTo,
       });
       setIsEditing(false);
-      // Optionally, refresh the task details
       const updated = await getTaskById(task.id);
       if (updated) {
         setTask(updated)

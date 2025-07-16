@@ -89,12 +89,15 @@ export const useTaskFilters = (
     return result;
   }, [tasks, filters, sort]);
 
+
+  // Pagination
   const paginatedTasks = useMemo(() => {
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
     return filteredTasks.slice(start, end);
   }, [filteredTasks, page, pageSize]);
 
+  // Update filter
   const updateFilter = (key: keyof TaskFilters, value: string) => {
     setFilters(prev => ({
       ...prev,
@@ -102,10 +105,12 @@ export const useTaskFilters = (
     }));
   };
 
+  // Update sort filter
   const updateSort = (option: SortOption) => {
     setSort(option);
   };
 
+  // Clear filters
   const clearFilters = () => {
     setFilters({
       search: '',
@@ -115,6 +120,7 @@ export const useTaskFilters = (
     });
   };
 
+  // Get task stats
   const getTaskStats = () => {
     const total = tasks.length;
     const todo = tasks.filter(task => task.status === 'toDo').length;

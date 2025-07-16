@@ -138,7 +138,7 @@ class Utils {
   static formatDate(dateString?: string) {
     if (!dateString) return "";
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return dateString; // fallback if invalid
+    if (isNaN(date.getTime())) return dateString; // fallback 
 
     return date.toLocaleDateString(undefined, {
       year: "numeric",

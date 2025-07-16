@@ -36,9 +36,14 @@ const Home: React.FC = () => {
     useState<boolean>(false);
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Set default tasks per page as 9
   const tasksPerPage = 9;
+
+  // Set default view type as grid
   const [viewType, setViewType] = useState<"grid" | "kanban">("grid");
 
+  // Reset current page when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [filters]);
