@@ -89,6 +89,7 @@ namespace task_management_kpmg.Server.Controllers
             var sql = "UPDATE Tasks SET " +
                 "Title = @Title," +
                 "Description = @Description," +
+                "AssignedTo = @AssignedTo," +
                 "Status = @Status," +
                 "DueDate = @DueDate," +
                 "Priority = @Priority," +
@@ -102,6 +103,7 @@ namespace task_management_kpmg.Server.Controllers
                 updatedTask.Status,
                 updatedTask.DueDate,
                 updatedTask.Priority,
+                updatedTask.AssignedTo,
                 Id = id
             });
 
@@ -114,14 +116,14 @@ namespace task_management_kpmg.Server.Controllers
         //Create a new task
         [HttpPost]
 
-        public async Task<ActionResult<TaskItem>> CreateTask(TaskItem task)
+        public async Task<ActionResult<TaskItem>> CreateTask([FromBody] TaskItem task)
         {
             using var connection = new SqlConnection(_connectionString);
 
             var sql = @"
-    INSERT INTO Tasks (Title, Description, Status, DueDate, CreatedDate, UpdatedAt, Priority)
+    INSERT INTO Tasks (Title, Description, AssignedTo, Status, DueDate, CreatedDate, UpdatedAt, Priority)
     OUTPUT INSERTED.Id
-    VALUES (@Title, @Description, @Status, @DueDate, GETUTCDATE(), GETUTCDATE(), @Priority)";
+    VALUES (@Title, @Description, @AssignedTo, @Status, @DueDate, GETUTCDATE(), GETUTCDATE(), @Priority)";
 
             var newId = await connection.ExecuteScalarAsync<int>(sql, task);
             task.Id = newId;

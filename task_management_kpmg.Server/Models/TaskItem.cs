@@ -12,10 +12,13 @@ namespace task_management_kpmg.Server.Models
         public string Description { get; set; }
         public TaskStatus Status { get; set; }
         public TaskPriority Priority { get; set; } = TaskPriority.Medium;
+        public string AssignedTo { get; set; } = "Unassigned";
         public DateTime DueDate { get; set; }
-
+        
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+
 
     }
 }

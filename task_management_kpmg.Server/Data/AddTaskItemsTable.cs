@@ -14,6 +14,7 @@
                     .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                     .WithColumn("Title").AsString(255).NotNullable()
                     .WithColumn("Description").AsString(int.MaxValue).Nullable()
+                    .WithColumn("AssignedTo").AsString(255).Nullable()
                     .WithColumn("Status").AsInt32().NotNullable()
                     .WithColumn("DueDate").AsDateTime().NotNullable()
                     .WithColumn("CreatedDate").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
